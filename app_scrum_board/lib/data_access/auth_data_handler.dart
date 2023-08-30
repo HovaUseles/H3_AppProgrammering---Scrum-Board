@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:app_scrum_board/exceptions/token_not_validated.dart';
 import 'package:localstore/localstore.dart';
 
 import 'api_client.dart';

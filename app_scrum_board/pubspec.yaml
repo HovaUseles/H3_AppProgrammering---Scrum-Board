@@ -69,9 +69,6 @@ flutter:
     - assets/flutter-test+4-client.p12
     - assets/flutter-test+4-client.pem
     - assets/flutter-test+4-client-key.pem
-    - assets/rootCA.pem
-    - assets/flutter-test+4.pem
-    - assets/flutter-test+4.p12
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

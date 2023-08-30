@@ -1,11 +1,10 @@
-import 'dart:convert';
 
+import 'package:app_scrum_board/services/locators.dart';
 import 'package:flutter/material.dart';
-
-import 'data_access/auth_data_handler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -60,7 +59,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _apiAnswer = "";
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_apiAnswer',
+              'Test',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
