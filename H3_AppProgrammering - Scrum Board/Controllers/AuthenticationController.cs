@@ -1,4 +1,5 @@
 ﻿using H3_AppProgrammering___Scrum_Board.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +13,7 @@ namespace H3_AppProgrammering___Scrum_Board.Controllers
     {
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] Login user)
+        public async Task<IActionResult> Login([FromBody] Login user)
         {
             if (user is null)
             {
@@ -33,6 +34,13 @@ namespace H3_AppProgrammering___Scrum_Board.Controllers
                 return Ok(new JwtAccessToken { Token = tokenString });
             }
             return Unauthorized();
+        }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ValidateAccessToken()
+        {
+            return Ok();
         }
     }
 }

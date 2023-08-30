@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using H3_AppProgrammering___Scrum_Board.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace H3_AppProgrammering___Scrum_Board.DTO
 {
@@ -12,5 +13,8 @@ namespace H3_AppProgrammering___Scrum_Board.DTO
 
         [Required]
         public string Content { get; set; }
+
+        [Required]
+        public ScrumColumn ScrumColumn { get; set; }
     }
 }

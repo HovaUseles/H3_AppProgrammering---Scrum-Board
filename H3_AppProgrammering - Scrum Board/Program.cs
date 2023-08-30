@@ -1,5 +1,6 @@
 
 
+using H3_AppProgrammering___Scrum_Board.DataHandlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -60,6 +61,8 @@ builder.Services.AddAuthentication(opt => {
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretJwtKeyWithSoManyCharactersThatYouWouldNotBelieveItButAlasHereItIsTheSuperLongKey"))
         };
     });
+
+builder.Services.AddScoped<ScrumCardDataHandler>();
 
 var app = builder.Build();
 
