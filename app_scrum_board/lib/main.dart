@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
     
     _handler.create(ScrumCard(
       index: 1,
-      title: "This is another test",
+      title: "",
       content: "With test content",
       scrumColumn: ScrumColumn.todo
     ));

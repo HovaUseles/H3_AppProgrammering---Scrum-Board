@@ -32,10 +32,12 @@ class ScrumCardDataHandler {
     await _initApiClient();
     String token = await _authHandler.getAccessToken(); // Get Access token
     try {
-      var response = await _apiClient
-          .get(_entityContext, token: token);
+      var response = await _apiClient.get(_entityContext, token: token);
 
       String responseBody = await response.transform(utf8.decoder).join();
+      if (responseBody.isEmpty) {
+        return [];
+      }
       Iterable jsonArray = json.decode(responseBody);
       List<ScrumCard> scrumCards = List<ScrumCard>.from(jsonArray.map(
               (jsonObject) => ScrumCard.fromMap(
@@ -65,8 +67,7 @@ class ScrumCardDataHandler {
   Future<ScrumCard> get(String id) async {
     await _initApiClient();
     String token = await _authHandler.getAccessToken(); // Get Access token
-    var response = await _apiClient.get("$_entityContext/$id",
-        token: token);
+    var response = await _apiClient.get("$_entityContext/$id", token: token);
     String responseBody = await response.transform(utf8.decoder).join();
     ScrumCard scrumCard = ScrumCard.fromJson(responseBody);
     return scrumCard;
@@ -76,18 +77,18 @@ class ScrumCardDataHandler {
   Future<ScrumCard> create(ScrumCard scrumCard) async {
     await _initApiClient();
     String token = await _authHandler.getAccessToken(); // Get Access token
-    Map<String, dynamic> jsonBody = scrumCard.toMap();
-    var response = await _apiClient.post(_entityContext, jsonBody,
-        token: token);
+      Map<String, dynamic> jsonBody = scrumCard.toMap();
+    var response =
+        await _apiClient.post(_entityContext, jsonBody, token: token);
+    if( response.statusCode == 400) {
+      throw BadRequestException("The server did not accept the content");
+    }
+
     String responseBody = await response.transform(utf8.decoder).join();
     if (responseBody.isNotEmpty) {
-      try {
-        ScrumCard createdScrumCard =
-            ScrumCard.fromJson(responseBody); // Should return the created model
-        return createdScrumCard;
-      } catch (ex) {
-        rethrow;
-      }
+      ScrumCard createdScrumCard =
+          ScrumCard.fromJson(responseBody); // Should return the created model
+      return createdScrumCard;
     }
 
     // Check for Uri header
@@ -106,7 +107,8 @@ class ScrumCardDataHandler {
     String token = await _authHandler.getAccessToken(); // Get Access token
     Map<String, dynamic> jsonBody = scrumCardChanges.toMap();
     await _apiClient.put("$_entityContext/${scrumCardChanges.id}", jsonBody,
-        token: token); // Saving response for easy extension refactor of the method
+        token:
+            token); // Saving response for easy extension refactor of the method
     return true;
   }
 
@@ -114,7 +116,9 @@ class ScrumCardDataHandler {
   Future<bool> delete(String id) async {
     await _initApiClient();
     String token = await _authHandler.getAccessToken(); // Get Access token
-    await _apiClient.delete("$_entityContext/$id", token: token); // Saving response for easy extension refactor of the method
+    await _apiClient.delete("$_entityContext/$id",
+        token:
+            token); // Saving response for easy extension refactor of the method
     return true;
   }
 }
