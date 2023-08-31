@@ -8,7 +8,7 @@ class AuthDataHandler {
   late final ApiClient _apiClient;
   bool _isApiClientInitialized = false;
 
-  final db = Localstore.instance; // Replace with secure store
+  final db = Localstore.instance; // TODO: Replace with secure store
 
   /// Ensures that the ApiClient has been async initialized
   Future<void> _initApiClient() async {
