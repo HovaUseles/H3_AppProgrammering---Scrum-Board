@@ -5,13 +5,22 @@ import 'package:localstore/localstore.dart';
 import 'api_client.dart';
 
 class AuthDataHandler {
-  final _apiClient =
-      ApiClient(ApiClientType.secure, baseUrl: "https://10.0.2.2:5002/api");
+  late final ApiClient _apiClient;
+  bool _isApiClientInitialized = false;
 
-  final db = Localstore.instance;
+  final db = Localstore.instance; // Replace with secure store
+
+  /// Ensures that the ApiClient has been async initialized
+  Future<void> _initApiClient() async {
+    if(_isApiClientInitialized) return;
+
+    _apiClient = await ApiClient.init(ApiClientType.secure, baseUrl: "https://10.0.2.2:5002/api");
+    _isApiClientInitialized = true;
+  }
 
   /// Request API for a new access token and saves it locally
   Future<String> _requestAccessToken(String username, String password) async {
+    await _initApiClient();
     Map<String, Object> mapBody = {"username": username, "password": password};
     var response = await _apiClient.post("Authentication/Login", mapBody);
     String responseBody = await response.transform(utf8.decoder).join();
@@ -43,6 +52,7 @@ class AuthDataHandler {
     try {
       String? localToken = await _getTokenFromLocal();
       if (localToken != null) {
+        await _initApiClient();
         var response = await _apiClient.get("Authentication/ValidateAccessToken"); // Validate if local token is active
         // If local token is valid return it
         if (response.statusCode == 200) {

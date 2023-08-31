@@ -1,6 +1,9 @@
 
+import 'package:app_scrum_board/data_access/scrum_card_data_handler.dart';
 import 'package:app_scrum_board/services/locators.dart';
 import 'package:flutter/material.dart';
+
+import 'models/_models.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +65,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ScrumCardDataHandler _handler = locator<ScrumCardDataHandler>(); // Inject handler
+    
+    _handler.create(ScrumCard(
+      index: 1,
+      title: "This is another test",
+      content: "With test content",
+      scrumColumn: ScrumColumn.todo
+    ));
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //

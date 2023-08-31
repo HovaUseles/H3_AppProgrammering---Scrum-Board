@@ -25,7 +25,7 @@ class ScrumCard extends EntityModel {
     result.addAll({'index': index});
     result.addAll({'title': title});
     result.addAll({'content': content});
-    result.addAll({'scrumColumn': scrumColumn});
+    result.addAll({'scrumColumn': scrumColumn.index});
 
     return result;
   }
@@ -36,7 +36,7 @@ class ScrumCard extends EntityModel {
       index: map["index"] ?? "", 
       title: map["title"] ?? "", 
       content: map["content"] ?? "", 
-      scrumColumn: map["scrumColumn"] 
+      scrumColumn: ScrumColumn.values[map["scrumColumn"]]
     );
   }
 
