@@ -1,7 +1,7 @@
 abstract class EntityModel {
-  final String? id;
+  final String? objectId;
 
-  EntityModel({this.id});
+  EntityModel({this.objectId});
 
 
  }

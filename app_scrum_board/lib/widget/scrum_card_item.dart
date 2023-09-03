@@ -5,23 +5,21 @@ class ScrumCardItem extends StatelessWidget {
   final String assignedTo;
   final String content;
 
-  late final Color backgroundColor;
+  final Color? backgroundColor;
 
-  ScrumCardItem(
+  const ScrumCardItem(
       {super.key,
       required this.title,
       required this.assignedTo,
       required this.content,
-      Color? backgroundColor}) {
-    backgroundColor = backgroundColor ?? Colors.lightBlue;
-  }
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: backgroundColor ?? Colors.white,
         borderRadius: const BorderRadius.all(
           Radius.circular(5),
         ),
@@ -29,8 +27,8 @@ class ScrumCardItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               title,
@@ -52,4 +50,5 @@ class ScrumCardItem extends StatelessWidget {
       ),
     );
   }
+  
 }

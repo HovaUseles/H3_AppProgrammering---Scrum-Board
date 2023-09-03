@@ -2,23 +2,40 @@
 import 'dart:convert';
 
 import 'package:app_scrum_board/models/entity_model.dart';
+import 'package:appflowy_board/appflowy_board.dart';
+
+import 'package:uuid/uuid.dart';
 
 enum ScrumColumn { todo, doing, done}
 
-class ScrumCard extends EntityModel {
+class ScrumCard extends AppFlowyGroupItem implements EntityModel {
+  String? _objectId;
+  final String _dummyId = const Uuid().v1(); 
+
+  // Public props
   final int index;
   final String title;
   final String content;
   final ScrumColumn scrumColumn;
+  
+  // Getters
+  @override
+  String? get objectId => _objectId;
+
+  @override
+  String get id => _objectId ?? _dummyId;
 
   ScrumCard({
-    String? id,
+    String? objectId,
     required this.index,
     required this.title,
     required this.content,
     required this.scrumColumn
-  }) : super(id: id);
+  }) {
+    _objectId = objectId;
+  }
 
+  // Methods and factories
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
     result.addAll({'id': id});
@@ -32,7 +49,7 @@ class ScrumCard extends EntityModel {
 
   factory ScrumCard.fromMap(Map<String, dynamic> map) {
     return ScrumCard(
-      id: map["id"], 
+      objectId: map["id"], 
       index: map["index"] ?? "", 
       title: map["title"] ?? "", 
       content: map["content"] ?? "", 
@@ -43,6 +60,6 @@ class ScrumCard extends EntityModel {
   factory ScrumCard.fromJson(String jsonSource) =>
       ScrumCard.fromMap(json.decode(jsonSource));
 
-  String toJson() => json.encode(toMap()); // Turn Model into json
-
+  String toJson() => json.encode(toMap());
+  
 }
