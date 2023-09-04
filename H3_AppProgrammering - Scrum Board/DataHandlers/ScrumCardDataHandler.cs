@@ -19,7 +19,7 @@ namespace H3_AppProgrammering___Scrum_Board.DataHandlers
             return await DB.Find<ScrumCard>().ManyAsync(_ => true);
         }
 
-        public async Task<ScrumCard> Create(int index, string title, string content, ScrumColumn scrumColumn)
+        public async Task<ScrumCard> Create(string index, string title, string content, string scrumColumn)
         {
             ScrumCard galleryEntry = new ScrumCard(
                 index,

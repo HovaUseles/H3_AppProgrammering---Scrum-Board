@@ -5,10 +5,10 @@ namespace H3_AppProgrammering___Scrum_Board.Models
 {
     public class ScrumCard : Entity
     {
-        public int Index { get; set; }
+        public string Index { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public ScrumColumn ScrumColumn { get; set; }
+        public string ScrumColumn { get; set; }
 
 
         // Factories
@@ -21,10 +21,10 @@ namespace H3_AppProgrammering___Scrum_Board.Models
         /// <param name="content"></param>
         /// <param name="scrumColumn"></param>
         public ScrumCard(
-            int index,
+            string index,
             string title,
             string content,
-            ScrumColumn scrumColumn)
+            string scrumColumn)
         {
             Index = index;
             Title = title;

@@ -6,7 +6,7 @@ namespace H3_AppProgrammering___Scrum_Board.DTO
     public class ScrumCardDTO
     {
         [Required]
-        public int Index { get; set; }
+        public string Index { get; set; }
 
         [Required]
         public string Title { get; set; }
@@ -15,6 +15,6 @@ namespace H3_AppProgrammering___Scrum_Board.DTO
         public string Content { get; set; }
 
         [Required]
-        public ScrumColumn ScrumColumn { get; set; }
+        public string ScrumColumn { get; set; }
     }
 }
